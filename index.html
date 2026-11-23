@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+    try {
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+    } catch (e) {}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Farheena Mirza &mdash; Odoo ERP Developer</title>
@@ -146,6 +154,14 @@ p { margin: 0; }
     background: none; border: 1px solid var(--line); border-radius: 8px;
     color: var(--ink); font: 500 0.85rem var(--f-body); padding: .4rem .8rem; cursor: pointer;
 }
+.theme-toggle {
+    display: grid; place-items: center; flex: none;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+    cursor: pointer; transition: border-color .2s, background .2s;
+}
+.theme-toggle:hover { border-color: var(--line-strong); background: var(--surface-2); }
+.theme-toggle svg { width: 17px; height: 17px; fill: currentColor; }
 
 /* Hero */
 .hero {
@@ -420,6 +436,7 @@ footer a:hover { color: var(--ink); }
             <a href="#expertise">Expertise</a>
             <a href="#contact">Contact</a>
         </nav>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode"></button>
         <a class="header-cta" href="mailto:farheenamirza07@gmail.com">Email me</a>
     </div>
 </header>
@@ -754,10 +771,12 @@ footer a:hover { color: var(--ink); }
             <div class="skill"><h3>Odoo apps</h3><ul><li>Point of Sale</li><li>Inventory &amp; barcode</li><li>Sales &amp; purchase</li><li>Accounting</li><li>Documents</li><li>Time Off</li><li>HR &amp; payroll</li><li>MRP, website, portal</li></ul></div>
             <div class="skill"><h3>Backend</h3><ul><li>Python and the Odoo ORM</li><li>PostgreSQL</li><li>REST, XML-RPC, JSON-RPC</li><li>Webhooks and scheduled actions</li><li>Access rights and record rules</li></ul></div>
             <div class="skill"><h3>Frontend &amp; reports</h3><ul><li>OWL components</li><li>JavaScript and SCSS</li><li>QWeb views and templates</li><li>POS UI customisation</li><li>QWeb PDF reports</li></ul></div>
-            <div class="skill"><h3>Integrations</h3><ul><li>Porter delivery API</li><li>Shopify</li></ul></div>
+            <div class="skill"><h3>Integrations</h3><ul><li>Porter delivery API</li><li>Shopify</li><li>Google Calendar API</li></ul></div>
             <div class="skill"><h3>Migration</h3><ul><li>Odoo 14 to Odoo 20</li><li>Custom module porting across versions</li><li>Data and database migration</li></ul></div>
             <div class="skill"><h3>Testing</h3><ul><li>Mobile app and website testing</li><li>Issue identification</li><li>Debugging and fixes before go-live</li></ul></div>
-            <div class="skill"><h3>Areas of interest</h3><ul><li>Python</li><li>HTML, CSS &amp; JavaScript</li><li>Machine learning &amp; data science</li><li>Odoo &amp; ERP development</li></ul></div>
+            <div class="skill"><h3>Areas of interest</h3><ul><li>Python</li><li>HTML, CSS &amp; JavaScript</li><li>Machine learning &amp; Data Science</li><li>Odoo &amp; ERP development</li></ul></div>
+            <div class="skill"><h3>Tools</h3><ul><li>Claude AI</li><li>ChatGPT</li><li>VS Code</li><li>Postman</li><li>Git &amp; GitHub</li><li>pgAdmin</li><li>Linux</li><li>Windows</li><li>iOS</li></ul></div>
+            <div class="skill"><h3>Languages</h3><ul><li>English</li><li>Hindi</li><li>Gujarati</li></ul></div>
         </div>
     </div>
 </section>
@@ -814,6 +833,28 @@ footer a:hover { color: var(--ink); }
         nav.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', false);
     }));
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5a1 1 0 0 1 1 1V7a1 1 0 1 1-2 0V5.5a1 1 0 0 1 1-1zm0 12.5a1 1 0 0 1 1 1v1.5a1 1 0 1 1-2 0V18a1 1 0 0 1 1-1zM4.5 12a1 1 0 0 1 1-1H7a1 1 0 1 1 0 2H5.5a1 1 0 0 1-1-1zm12.5 0a1 1 0 0 1 1-1h1.5a1 1 0 1 1 0 2H18a1 1 0 0 1-1-1zM6.34 6.34a1 1 0 0 1 1.41 0l1.06 1.06a1 1 0 1 1-1.41 1.41L6.34 7.75a1 1 0 0 1 0-1.41zm10.32 10.32a1 1 0 0 1 1.41 0l1.06 1.06a1 1 0 0 1-1.41 1.41l-1.06-1.06a1 1 0 0 1 0-1.41zM17.66 6.34a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.81 15.19a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 0 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7z"/></svg>';
+    const moonIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.7A8.5 8.5 0 1 1 9.3 3.6a7 7 0 1 0 11.1 11.1z"/></svg>';
+    function effectiveTheme() {
+        const explicit = document.documentElement.getAttribute('data-theme');
+        if (explicit) return explicit;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    function syncToggle() {
+        const t = effectiveTheme();
+        themeToggle.innerHTML = t === 'dark' ? sunIcon : moonIcon;
+        themeToggle.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+    themeToggle.addEventListener('click', () => {
+        const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        syncToggle();
+    });
+    syncToggle();
 
     // Copy email
     const copyBtn = document.getElementById('copy-mail');
